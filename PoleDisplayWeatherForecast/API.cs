@@ -30,25 +30,6 @@ namespace PoleDisplayWeatherForecast
 
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //client.DefaultRequestHeaders.Add("Machine", Environment.MachineName);
-            }
-        }
-
-        public async Task<U> SendPostRequestAsync<T, U>(T objectToPost, string endpoint)
-        {
-            try
-            {
-                string serializedObject = JsonConvert.SerializeObject(objectToPost);
-                StringContent content = new StringContent(serializedObject, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(endpoint, content);
-                response.EnsureSuccessStatusCode();
-                string result = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<U>(result);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error Sending Request To Server. Please try again.\n{ex}");
-                return JsonConvert.DeserializeObject<U>("{[]}");
             }
         }
 
